@@ -1,4 +1,5 @@
 const express = require("express");
+const mysql = require("mysql2");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -6,6 +7,16 @@ const app = express();
 //middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// connect or database
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '123456',
+    database: 'election'
+},
+    console.log('Connected to election database')
+)
 
 app.get('/', (req, res) => {
     res.json({
