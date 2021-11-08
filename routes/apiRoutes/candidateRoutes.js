@@ -6,6 +6,7 @@ const inputCheck = require('../../utils/inputCheck');
 
 // end point to get candidates data with parties detail
 router.get('/candidates', (req, res) => {
+    console.log("Get request for ", req.path)
     const sql = `SELECT candidates. * , parties.name AS party_name FROM 
     candidates LEFT JOIN parties ON candidates.party_id = parties.id`;
     db.query(sql, (err, rows) => {
@@ -21,6 +22,7 @@ router.get('/candidates', (req, res) => {
 });
 // use the foreign to join candidates and party table by left join 
 router.get('/candidate/:id', (req, res) => {
+    console.log("Get request for ", req.path)
     const sql = `SELECT candidates. * , parties.name AS party_name FROM 
     candidates LEFT JOIN parties ON candidates.party_id = parties.id  WHERE candidates.id = ?`;
     const params = [req.params.id];
@@ -38,6 +40,7 @@ router.get('/candidate/:id', (req, res) => {
 
 // Delete Cindidated by id
 router.delete('/candidate/:id', (req, res) => {
+    console.log("Delete request for ", req.path)
     const sql = `DELETE FROM candidates WHERE id = ?`;
     const params = [req.params.id];
     db.query(sql, params, (err, result) => {
@@ -59,6 +62,7 @@ router.delete('/candidate/:id', (req, res) => {
     });
 });
 router.post('/candidate', ({ body }, res) => {
+    console.log("Post request for ", req.path)
     const errors = inputCheck(body, 'first_name', 'last_name', 'industry_connected');
     if (errors) {
         res.status(400).json({ error: errors });
