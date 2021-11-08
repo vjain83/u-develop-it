@@ -19,7 +19,7 @@ router.get('/candidates', (req, res) => {
         });
     });
 });
-// Select candiate by id
+// use the foreign to join candidates and party table by left join 
 router.get('/candidate/:id', (req, res) => {
     const sql = `SELECT candidates. * , parties.name AS party_name FROM 
     candidates LEFT JOIN parties ON candidates.party_id = parties.id  WHERE candidates.id = ?`;
